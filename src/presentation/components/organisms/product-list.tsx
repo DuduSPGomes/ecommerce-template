@@ -1,4 +1,4 @@
-import { ProductRepository } from 'data/repositories/product.repository'
+import { ProductRepository } from 'data/repositories/product/product.repository'
 import { Product } from 'domain/entities/product.entity'
 import React from 'react'
 import ProductCard from '../molecules/product-card'
