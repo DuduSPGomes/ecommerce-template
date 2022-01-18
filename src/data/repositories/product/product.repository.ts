@@ -1,10 +1,13 @@
+import { Product } from '@App/domain/entities/product.entity'
 import axios from 'axios'
-import { Product } from 'domain/entities/product.entity'
+
+//'https://fakestoreapi.com/products'
 
 export class ProductRepository {
-  async getAll(): Promise<Product[]> {
-    const products = await axios.get('https://fakestoreapi.com/products')
+  constructor(private url: string) {}
 
-    return products.data
+  async getAll(): Promise<Product[]> {
+    const response = await axios.get(this.url)
+    return response.data
   }
 }

@@ -1,7 +1,7 @@
-import { Product } from 'domain/entities/product.entity'
+import axios from 'axios'
 import { ProductRepository } from './product.repository'
 
-const products: Product[] = [
+export const apiData = [
   {
     id: 1,
     title: 'string',
@@ -28,16 +28,35 @@ const products: Product[] = [
   }
 ]
 
-test('should returns products', async () => {
-  class ProductRepositoryStub implements ProductRepository {
-    async getAll(): Promise<Product[]> {
-      return await products
-    }
-  }
+jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
-  const x = new ProductRepositoryStub()
+const makeSut = () => {
+  const url = 'url'
+  return new ProductRepository(url)
+}
 
-  const isProducts = await x.getAll()
+describe('testing ProductRepository', () => {
+  describe('gestAll method', () => {
+    beforeEach(() => {
+      mockedAxios.get.mockResolvedValue({ data: apiData })
+    })
 
-  expect(isProducts).toBe(products)
+    test('should returns list of products', async () => {
+      const sut = makeSut()
+      const products = await sut.getAll()
+      expect(products).toEqual(apiData)
+    })
+
+    beforeEach(() => {
+      apiData.length = 0
+      mockedAxios.get.mockResolvedValue({ data: apiData })
+    })
+
+    test('should returns list of products with size 0 if request fails', async () => {
+      const sut = makeSut()
+      const products = await sut.getAll()
+      expect(products.length).toBe(0)
+    })
+  })
 })
