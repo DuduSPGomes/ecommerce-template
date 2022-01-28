@@ -1,5 +1,14 @@
-import ProductList from 'presentation/components/organisms/product-list/product-list'
+import { useProducts } from '@App/modules/catalog/controller/useProducts'
+import ProductList from '@Components/organisms/product-list'
+import MainTemplate from '@Components/template/main-template'
 
 export default function Home() {
-  return <ProductList />
+  const {products} = useProducts()
+
+  return (
+    <MainTemplate>
+      <ProductList products={products} />
+      {/*<ProductPage product={products[0]} />*/}
+    </MainTemplate>
+  )
 }

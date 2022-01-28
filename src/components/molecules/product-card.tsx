@@ -1,6 +1,5 @@
+import { Product } from '@App/modules/catalog/domain/product.entity'
 import { Box, Flex, Icon, IconButton, Img, Text } from '@chakra-ui/react'
-import { Product } from 'domain/entities/product.entity'
-import React from 'react'
 
 interface Props {
   product: Product
@@ -8,14 +7,17 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   return (
-    <Box>
+    <Box
+      data-testid="product-card"
+      bg='green.100'
+    >
       <Text>{product.category}</Text>
       <Text>{product.title}</Text>
       <Box>
         <Box>
           <Text>-44%</Text>
         </Box>
-        <Img src={product.image} w="150px" h="150px" />
+        <Img bg='gray' src={product.image} w="150px" h="150px" />
       </Box>
       <Flex>
         <Text>{product.price}</Text>
