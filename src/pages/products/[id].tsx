@@ -58,18 +58,17 @@ export default function ProductPage({ product }: Props) {
           <Text>{product.title}</Text>
           <Text>{product.description}</Text>
           <Text>{product.price}</Text>
-          {product?.variants ?
+          {product?.variants ? (
             <>
-            {console.log(product.variants)}
-            <Input type="text" onClick={sizeDrawer.onOpen} />
-            <SizeDrawer
-              product={product}
-              isOpen={sizeDrawer.isOpen}
-              onClose={sizeDrawer.onClose}
-            />
-
-            </> : null
-          }
+              {console.log(product.variants)}
+              <Input type="text" onClick={sizeDrawer.onOpen} />
+              <SizeDrawer
+                product={product}
+                isOpen={sizeDrawer.isOpen}
+                onClose={sizeDrawer.onClose}
+              />
+            </>
+          ) : null}
           <CartDrawer isOpen={cartDrawer.isOpen} onClose={cartDrawer.onClose} />
           <Input type="number" />
           <Button onClick={cartDrawer.onOpen}>Adicionar ao Carrinho</Button>

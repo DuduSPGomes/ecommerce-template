@@ -1,4 +1,7 @@
-import { AllProductsQuery, OneProductQuery } from '../../../../saleorTypes/index'
+import {
+  AllProductsQuery,
+  OneProductQuery
+} from '../../../../saleorTypes/index'
 
 export class Product {
   id: string
@@ -9,15 +12,11 @@ export class Product {
   image: string
   variants: string[] | null
 
-  constructor() {}
-
-  private static hasVariants(p): string[] | null{
-    const sizes = p.variants.map(v => v.name)
-    if(sizes.length === 1 && sizes[0].length === 0)
-      return null
-
+  private static hasVariants(p): string[] | null {
+    const sizes = p.variants.map((v) => v.name)
+    if (sizes.length === 1 && sizes[0].length === 0) return null
     return sizes
- }
+  }
 
   static toDomainList(data: AllProductsQuery) {
     const prods: Product[] = []
@@ -49,8 +48,4 @@ export class Product {
       variants: this.hasVariants(data.product)
     }
   }
-
-
-
-
 }
