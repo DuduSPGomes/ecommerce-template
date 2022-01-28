@@ -1,0 +1,13 @@
+overwrite: true
+schema: "https://demo.saleor.io/graphql/"
+documents: "src/**/*.query.ts"
+generates:
+  ./saleorTypes/index.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
+
