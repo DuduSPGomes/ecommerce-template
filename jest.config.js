@@ -4,7 +4,7 @@ module.exports = {
 
     ],
     'roots': [
-        '<rootDir>/src'
+        '<rootDir>/src/__test__'
     ],
     moduleNameMapper: {
         "^@components(.*)$": "<rootDir>/components$1",

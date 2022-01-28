@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    //"baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@App/*": [
-        "src/*"
-      ],
+      "@Components/*": ["src/components/*"],
+      "@App/*": ["src/*"],
     },
     "target": "es5",
     "lib": [
@@ -27,8 +26,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-  ],
+    "**/*.tsx",
+    "src/modules/catalog/data/product.query.ts" ],
   "exclude": [
     "node_modules"
   ]
