@@ -1,13 +1,17 @@
-export const queryProducts = /* GraphQL */ `query AllProducts {
-  products(first: 5, channel: "default-channel") {
-    edges {
-      node {
+export const queryProducts = /* GraphQL */ `
+  query AllProducts {
+    products(first: 30, channel: "default-channel") {
+      edges {
+        node {
           id
           name
           description
           thumbnail(size: 500) {
             url
             alt
+          }
+          variants {
+            name
           }
           pricing {
             priceRangeUndiscounted {
@@ -18,12 +22,44 @@ export const queryProducts = /* GraphQL */ `query AllProducts {
                 }
               }
             }
-        	}
-        category {
-          id
-          slug
+          }
+          category {
+            id
+            slug
+          }
         }
       }
     }
   }
-}`
+`
+
+export const queryProductById = (id) => /* GraphQL */ `
+  query OneProduct {
+    product(id: "${id}", channel: "default-channel") {
+      id
+      name
+      description
+      thumbnail(size: 500) {
+        url
+        alt
+      }
+      variants {
+        name
+      }
+      pricing {
+        priceRangeUndiscounted {
+          start {
+            gross {
+              amount
+              currency
+            }
+          }
+        }
+      }
+      category {
+        id
+        slug
+      }
+    }
+  }
+`

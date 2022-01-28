@@ -12655,7 +12655,12 @@ export type AllCategoriesQuery = { __typename?: 'Query', categories?: { __typena
 export type AllProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllProductsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductCountableConnection', edges: Array<{ __typename?: 'ProductCountableEdge', node: { __typename?: 'Product', id: string, name: string, description?: any | null | undefined, thumbnail?: { __typename?: 'Image', url: string, alt?: string | null | undefined } | null | undefined, pricing?: { __typename?: 'ProductPricingInfo', priceRangeUndiscounted?: { __typename?: 'TaxedMoneyRange', start?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null | undefined } | null | undefined } | null | undefined, category?: { __typename?: 'Category', id: string, slug: string } | null | undefined } }> } | null | undefined };
+export type AllProductsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductCountableConnection', edges: Array<{ __typename?: 'ProductCountableEdge', node: { __typename?: 'Product', id: string, name: string, description?: any | null | undefined, thumbnail?: { __typename?: 'Image', url: string, alt?: string | null | undefined } | null | undefined, variants?: Array<{ __typename?: 'ProductVariant', name: string } | null | undefined> | null | undefined, pricing?: { __typename?: 'ProductPricingInfo', priceRangeUndiscounted?: { __typename?: 'TaxedMoneyRange', start?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null | undefined } | null | undefined } | null | undefined, category?: { __typename?: 'Category', id: string, slug: string } | null | undefined } }> } | null | undefined };
+
+export type OneProductQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OneProductQuery = { __typename?: 'Query', product?: { __typename?: 'Product', id: string, name: string, description?: any | null | undefined, thumbnail?: { __typename?: 'Image', url: string, alt?: string | null | undefined } | null | undefined, variants?: Array<{ __typename?: 'ProductVariant', name: string } | null | undefined> | null | undefined, pricing?: { __typename?: 'ProductPricingInfo', priceRangeUndiscounted?: { __typename?: 'TaxedMoneyRange', start?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number, currency: string } } | null | undefined } | null | undefined } | null | undefined, category?: { __typename?: 'Category', id: string, slug: string } | null | undefined } | null | undefined };
 
 
 export const AllCategoriesDocument = gql`
@@ -12703,7 +12708,7 @@ export type AllCategoriesLazyQueryHookResult = ReturnType<typeof useAllCategorie
 export type AllCategoriesQueryResult = Apollo.QueryResult<AllCategoriesQuery, AllCategoriesQueryVariables>;
 export const AllProductsDocument = gql`
     query AllProducts {
-  products(first: 5, channel: "default-channel") {
+  products(first: 30, channel: "default-channel") {
     edges {
       node {
         id
@@ -12712,6 +12717,9 @@ export const AllProductsDocument = gql`
         thumbnail(size: 500) {
           url
           alt
+        }
+        variants {
+          name
         }
         pricing {
           priceRangeUndiscounted {
@@ -12759,3 +12767,60 @@ export function useAllProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type AllProductsQueryHookResult = ReturnType<typeof useAllProductsQuery>;
 export type AllProductsLazyQueryHookResult = ReturnType<typeof useAllProductsLazyQuery>;
 export type AllProductsQueryResult = Apollo.QueryResult<AllProductsQuery, AllProductsQueryVariables>;
+export const OneProductDocument = gql`
+    query OneProduct {
+  product(id: "", channel: "default-channel") {
+    id
+    name
+    description
+    thumbnail(size: 500) {
+      url
+      alt
+    }
+    variants {
+      name
+    }
+    pricing {
+      priceRangeUndiscounted {
+        start {
+          gross {
+            amount
+            currency
+          }
+        }
+      }
+    }
+    category {
+      id
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useOneProductQuery__
+ *
+ * To run a query within a React component, call `useOneProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOneProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOneProductQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOneProductQuery(baseOptions?: Apollo.QueryHookOptions<OneProductQuery, OneProductQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OneProductQuery, OneProductQueryVariables>(OneProductDocument, options);
+      }
+export function useOneProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OneProductQuery, OneProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OneProductQuery, OneProductQueryVariables>(OneProductDocument, options);
+        }
+export type OneProductQueryHookResult = ReturnType<typeof useOneProductQuery>;
+export type OneProductLazyQueryHookResult = ReturnType<typeof useOneProductLazyQuery>;
+export type OneProductQueryResult = Apollo.QueryResult<OneProductQuery, OneProductQueryVariables>;

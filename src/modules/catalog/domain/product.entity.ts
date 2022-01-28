@@ -1,5 +1,4 @@
-import { AllProductsQuery } from '../../../../saleorTypes/index'
-import { Rating } from './rating.entity'
+import { AllProductsQuery, OneProductQuery } from '../../../../saleorTypes/index'
 
 export class Product {
   id: string
@@ -8,11 +7,22 @@ export class Product {
   category: string[]
   description: string
   image: string
-  rating: Rating
+  variants: string[] | null
+
+  constructor() {}
+
+  private static hasVariants(p): string[] | null{
+    const sizes = p.variants.map(v => v.name)
+    if(sizes.length === 1 && sizes[0].length === 0)
+      return null
+
+    return sizes
+ }
 
   static toDomainList(data: AllProductsQuery) {
     const prods: Product[] = []
-    data.products?.edges.map(item => {
+
+    data.products?.edges.map((item) => {
       const p = item.node
       prods.push({
         id: p.id,
@@ -21,13 +31,26 @@ export class Product {
         description: p.description,
         image: p.thumbnail.url,
         price: p.pricing.priceRangeUndiscounted.start.gross.amount,
-        rating: {count: 1, rate: 2}
-
+        variants: this.hasVariants(p)
       })
     })
 
     return prods
   }
 
-}
+  static toDomain(data: OneProductQuery) {
+    return {
+      id: data.product.id,
+      title: data.product.name,
+      category: [data.product.category.slug],
+      description: data.product.description,
+      image: data.product.thumbnail.url,
+      price: data.product.pricing.priceRangeUndiscounted.start.gross.amount,
+      variants: this.hasVariants(data.product)
+    }
+  }
 
+
+
+
+}
