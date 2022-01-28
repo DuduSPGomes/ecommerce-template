@@ -9,12 +9,9 @@ interface Props {
 
 export default function ProductList({ products }: Props) {
   return (
-    <HStack
-      data-testid="product-list"
-      spacing={3}
-    >
-      {products?.map((product) => (
-        <Link href={`/products/${product.id}`}>
+    <HStack data-testid="product-list" spacing={3} flexWrap='wrap'>
+      {products?.map((product, index) => (
+        <Link key={index} href={`/products/${product.id}`}>
           <a>
             <ProductCard key={product.id} product={product} />
           </a>

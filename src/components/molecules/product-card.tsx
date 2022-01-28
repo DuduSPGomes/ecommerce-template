@@ -7,17 +7,14 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   return (
-    <Box
-      data-testid="product-card"
-      bg='green.100'
-    >
+    <Box data-testid="product-card" bg="green.100">
       <Text>{product.category}</Text>
       <Text>{product.title}</Text>
       <Box>
         <Box>
           <Text>-44%</Text>
         </Box>
-        <Img bg='gray' src={product.image} w="150px" h="150px" />
+        <Img bg="gray" src={product.image} w="150px" h="150px" />
       </Box>
       <Flex>
         <Text>{product.price}</Text>

@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme/index'
-import {ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 
 export const client = new ApolloClient({
   uri: 'https://demo.saleor.io/graphql/',

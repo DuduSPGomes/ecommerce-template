@@ -1,14 +1,16 @@
-import ProductCard from '@Components/molecules/product-card';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import ProductCard from '@Components/molecules/product-card'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 export default {
   title: 'App/Molecules/product-card',
   component: ProductCard
-} as ComponentMeta<typeof ProductCard>;
+} as ComponentMeta<typeof ProductCard>
 
-const Template: ComponentStory<typeof ProductCard> = (args) => <ProductCard {...args} />;
+const Template: ComponentStory<typeof ProductCard> = (args) => (
+  <ProductCard {...args} />
+)
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 
 Default.args = {
   product: {
@@ -16,6 +18,7 @@ Default.args = {
     price: 25.75,
     category: ['Nome da Categoria'],
     description: 'descrição aqui',
-    image: 'https://demo.saleor.io/media/products/saleordemoproduct_paints_01.png',
+    image:
+      'https://demo.saleor.io/media/products/saleordemoproduct_paints_01.png'
   }
-};
+}

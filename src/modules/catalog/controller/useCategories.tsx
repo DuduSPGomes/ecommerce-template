@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { CategoryRepository } from "../data/category.repository"
-import { Category } from "../domain/category"
+import { useEffect, useState } from 'react'
+import { CategoryRepository } from '../data/category.repository'
+import { Category } from '../domain/category'
 
 export function useCategories() {
   const [categories, setCategories] = useState<Category[]>()
@@ -15,5 +15,5 @@ export function useCategories() {
     getCategories()
   }, [])
 
-  return {categories, setCategories}
+  return { categories, setCategories }
 }

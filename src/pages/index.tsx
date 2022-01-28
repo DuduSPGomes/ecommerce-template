@@ -3,7 +3,7 @@ import ProductList from '@Components/organisms/product-list'
 import MainTemplate from '@Components/template/main-template'
 
 export default function Home() {
-  const {products} = useProducts()
+  const { products } = useProducts()
 
   return (
     <MainTemplate>

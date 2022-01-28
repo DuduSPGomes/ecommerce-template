@@ -1,4 +1,4 @@
-import { AllCategoriesQuery } from "saleorTypes"
+import { AllCategoriesQuery } from 'saleorTypes'
 
 export class Category {
   id: string
@@ -11,7 +11,7 @@ export class Category {
   static toDomainList(data: AllCategoriesQuery) {
     const categories: Category[] = []
 
-    data.categories.edges.map(item => {
+    data.categories.edges.map((item) => {
       const category = item.node
       categories.push({
         id: category.id,
