@@ -1,5 +1,6 @@
 import { ProductRepository } from '@App/modules/catalog/data/product.repository'
 import { Product } from '@App/modules/catalog/domain/product.entity'
+import { useDispatch, useStore } from '@App/store/store'
 import {
   Box,
   Button,
@@ -9,9 +10,9 @@ import {
   Text,
   useDisclosure
 } from '@chakra-ui/react'
-import CartDrawer from '@Components/organisms/cart-drawer'
 import { SizeDrawer } from '@Components/organisms/size-drawer'
 import MainTemplate from '@Components/template/main-template'
+import Link from 'next/link'
 
 type Props = {
   product: Product
@@ -42,8 +43,24 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ProductPage({ product }: Props) {
-  const cartDrawer = useDisclosure()
+  const { cart, cartDrawer } = useStore()
+  const dispatch = useDispatch()
   const sizeDrawer = useDisclosure()
+
+  const test = () => {
+    console.log('ola')
+  }
+
+  function addToCart() {
+    cartDrawer.onOpen()
+    /*dispatch({
+      contextType: contextType.cart,
+      type: actionCart.add,
+      payload: product
+    })*/
+    test()
+    cart.add(product)
+  }
 
   return (
     <MainTemplate>
@@ -60,7 +77,6 @@ export default function ProductPage({ product }: Props) {
           <Text>{product.price}</Text>
           {product?.variants ? (
             <>
-              {console.log(product.variants)}
               <Input type="text" onClick={sizeDrawer.onOpen} />
               <SizeDrawer
                 product={product}
@@ -69,10 +85,12 @@ export default function ProductPage({ product }: Props) {
               />
             </>
           ) : null}
-          <CartDrawer isOpen={cartDrawer.isOpen} onClose={cartDrawer.onClose} />
           <Input type="number" />
-          <Button onClick={cartDrawer.onOpen}>Adicionar ao Carrinho</Button>
+          <Button onClick={addToCart}>Adicionar ao Carrinho</Button>
         </Box>
+        <Link href={'/'}>
+          <a>voltar</a>
+        </Link>
       </Flex>
     </MainTemplate>
   )

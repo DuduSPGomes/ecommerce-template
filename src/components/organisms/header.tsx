@@ -1,4 +1,5 @@
 import { Category } from '@App/modules/catalog/domain/category'
+import { useStore } from '@App/store/store'
 import {
   Box,
   Flex,
@@ -11,12 +12,21 @@ import {
 import Logo from '@Components/atoms/logo'
 import CategoryDrawer from '@Components/organisms/category-drawer'
 import UserMenu from '@Components/organisms/user-menu'
+import CartDrawer from './cart-drawer'
+import { useRouter } from 'next/router'
 
 type Props = {
   categories: Category[]
 }
 
 export default function Header({ categories }: Props) {
+  const { cart, cartDrawer } = useStore()
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push('/cart')
+  }
+
   return (
     <Box as="header" bg="red">
       <Flex justify="space-between" bg="gray">
@@ -32,7 +42,15 @@ export default function Header({ categories }: Props) {
           <Input type="text" />
           <IconButton aria-label="search" icon={<Icon />} />
         </HStack>
-        <UserMenu />
+        <Box>
+          <UserMenu />
+        </Box>
+        <CartDrawer
+          cart={cart}
+          disclosure={cartDrawer}
+          btnNavigation={handleClick}
+          btnCheckout={handleClick}
+        />
       </Flex>
       <Flex>
         <CategoryDrawer categories={categories} />
